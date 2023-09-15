@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.web.admin.AdminDAO">
+
+
+<select id="list" resultType="Movielist">
+
+SELECT mi.mv_poster,mi.mv_code,mi.mv_name,mi.mv_sdate,mi.mv_maker,ma.au_status,ma.au_acccnt
+FROM movie_info mi
+INNER JOIN movie_audience ma
+ON mi.mv_code = ma.mv_code
+ORDER BY mi.mv_sdate DESC 
+
+
+</select>
+
+</mapper>

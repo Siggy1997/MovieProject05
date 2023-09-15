@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.web.detail.DetailDAO">
+
+<select id="detail">
+	SELECT * 
+	FROM movie_info
+	WHERE mv_code=#{mv_code}
+
+</select>
+
+
+</mapper>

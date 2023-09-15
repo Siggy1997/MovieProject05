@@ -1,0 +1,205 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'GangwonState';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/GangwonState.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body, nav {
+	margin: 0;
+	padding: 0;
+	 font-family: 'LINESeedKR-Bd';
+}
+nav {
+	height: 150px;
+	
+}
+
+li {
+	list-style: none;
+	float: left;
+	text-align: center;
+}
+
+.menu {
+	font-family: 'Noto Sans KR', sans-serif;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 150px;
+	position: fixed;
+	overflow: hidden;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+.menu hr {
+	border: 0.01em solid #A6A6A6;
+}
+
+.menu_header {
+	width: 100%;
+	height: 80px;
+}
+
+.header_logo {
+	width: 50%;
+	float: left;
+	display: grid;
+	padding-top: 18px;
+	padding-left: 70px;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+.header_logo img {
+	height: 60px;
+}
+
+.header_warp {
+	width: 50%;
+	height: 100%;
+	float: right;
+}
+
+.aside {
+	padding-left: 150px;
+	padding-right: 30px;
+	padding-top: 5px;
+	box-sizing: border-box;
+}
+
+.aside_list {
+	display: flex;
+	justify-content: center; 
+	align-items: center;
+	height: 100%;
+}
+
+.aside li {
+	width: 120px;
+	height: 60px;
+	display: grid;
+}
+
+.aside_list .icon {
+	font-size: 30px;
+	font-weight: bolder;
+}
+
+.aside_list .text {
+	font-size: 13px;
+}
+
+.menu_nav {
+	height: 100%;
+}
+
+.menu_map {
+	width: 50%;
+	height: 50px;
+	line-height: 60px;
+	float: left;
+	padding-left: 70px;
+	box-sizing: border-box;
+}
+
+.menu_map .icon {
+	font-size: 25px;
+	font-weight: bolder;
+}
+
+.menu_warp {
+	width: 50%;
+	float: left;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
+.menu_warp ul {
+	padding-left: 120px;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+.menu_warp li {
+	width: 80px;
+	height: 60px;
+	font-size: 14pt;
+	font-weight: 600;
+}
+
+
+
+/* .menu_left {
+    font-family: 'GangwonState';
+	float: left;
+	width: 20%;
+	display: flex;
+	justify-content: center; 
+	align-items : center;
+	font-size: 18pt;
+	line-height: 100px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.menu_center {
+	float: left;
+	width: 50%;
+	display: flex;
+	justify-content: center; 
+	align-items : center;
+	font-size: 13.5pt;
+	overflow: hidden;
+}
+
+ul{
+	font-family: 'LINESeedKR-Bd';
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	
+	width: 100px;
+	line-height: 100px;
+	display: inline;
+	padding: 0px 5px;   
+	box-sizing: border-box;
+}
+
+.menu_right {
+	width: 30%;
+	line-height: 100px;
+	font-size: 13.5pt;
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a:hover {
+	color: #DB4433;
+	cursor: pointer;
+}
+
+li:hover {
+	color: #DB4433;
+	cursor: pointer;
+}
+
+.box_id:hover, .box_login:hover, .box_logout:hover {
+	color: #DB4433;
+	cursor: pointer;
+}
+ */
