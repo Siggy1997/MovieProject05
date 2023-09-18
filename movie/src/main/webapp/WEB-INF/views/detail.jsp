@@ -159,7 +159,7 @@
 		</div>
 	</div>
 
-	<div class="clear"></div>
+	<div class="clear"></div> 
 	<ul>
 		<li class="on">영화 정보</li>
 		<li>예고편</li>
