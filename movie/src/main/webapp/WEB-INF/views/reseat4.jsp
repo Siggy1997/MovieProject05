@@ -39,8 +39,6 @@
 							+ parseInt($(".now3").text());
 					$(".selectednum").text("선택인원수 : " + countnow);
 					if(pplkind=="성인"){
-
-
 					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   22,000원 X " + (nownum+1) + " = "+ ((nownum+1)*22000).toLocaleString()+"원");
 						
 					}else if(pplkind =="청소년"){

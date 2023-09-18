@@ -17,7 +17,6 @@ public class DetailController {
 	@GetMapping("/detail")
 	public String detailPage(@RequestParam("mv_code") String mv_code, Model model) {
 		Map<String, Object> detail = detailService.detail(mv_code);
-		System.out.println(detail);
 		model.addAttribute("detail", detail);
 		
 	    return "detail"; 
