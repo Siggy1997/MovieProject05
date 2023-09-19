@@ -29,8 +29,12 @@
 			}
 		});
 
-		let show = false;
+		$(".goto:contains('예정')").click(function() {
+			alert("아직 미개봉입니다")
+			return false;
+		});
 
+		let show = false;
 		$(".share").click(function() {
 			if (show) {
 				$("#sharediv, #triangle").hide();
@@ -89,6 +93,21 @@
 		$("li").click(function() {
 			$(this).addClass("on");
 			$(this).siblings("li").removeClass("on");
+			if ($(this).hasClass("minfo")) {
+				$(".info").show();
+				$(".trailer").hide();
+				$(".stillcut").hide();
+			} else if ($(this).hasClass("mtrailer")) {
+				$(".info").hide();
+				$(".trailer").show();
+				$(".stillcut").hide();
+			} else if ($(this).hasClass("mstillcut")) {
+
+				$(".info").hide();
+				$(".trailer").hide();
+				$(".stillcut").show();
+
+			}
 		})
 
 	});
@@ -112,7 +131,9 @@
 					<svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                     <rect id="shape" height="40" width="150" />
                     <div id="text">
-                        <a href=""><span class="spot"></span>예매하기</a>
+                        <a class="goto" href="./"><span class="spot"></span>
+							<c:if test="${detail.au_status.equals('개봉') }">예매하기</c:if>
+							<c:if test="${detail.au_status.equals('개봉예정') }">개봉예정</c:if></a>
                     </div>
                 </svg>
 				</div>
@@ -159,29 +180,47 @@
 		</div>
 	</div>
 
-	<div class="clear"></div> 
-	<ul>
-		<li class="on">영화 정보</li>
-		<li>예고편</li>
-		<li>등장인물</li>
-		<li>스틸컷</li>
-	</ul>
 	<div class="clear"></div>
+	<div class="content">
+		<ul>
+			<li class="minfo on">영화 정보</li>
+			<li class="mtrailer">예고편</li>
+			<li class="mactor">등장인물</li>
+			<li class="mstillcut">스틸컷</li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+
 	<div class="info">
-		영화 이름 : ${detail.mv_name }<br>
-		장르 : ${detail.mv_genre }<br>
-		${detail.mv_country }<br>
-		${detail.mv_maker }<br>
-		러닝 타임 : ${detail.mv_runtime }분<br>
+		<h2>${detail.mv_name }</h2>
+		<img src="./img/runningtime.png">${detail.mv_runtime }분 &nbsp &nbsp | &nbsp &nbsp   <img src="${detail.mv_gradeimg }"> ${detail.mv_grade } <br> ${detail.mv_country }<br>
+		${detail.mv_maker }<br> 러닝 타임 : ${detail.mv_runtime }분<br>
 		개봉일 : ${detail.mv_sdate }
 		<hr>
 		${detail.mv_sinop }
 	</div>
-	
-	
-	
-	
-	
+
+	<div class="trailer">
+		<iframe width="100%" height="100%" src="${detail.au_trailer }"
+			title="YouTube video player" frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			allowfullscreen></iframe>
+	</div>
+
+
+
+	<div class="actor"></div>
+
+	<div class="stillcut">
+		<c:forEach items="${au_img}" var="im">
+			<img alt="" src="${im}">
+		</c:forEach>
+	</div>
+
+
+
+
+	<div class="clear"></div>
 	<div class="clear"></div>
 
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.movie.web.detail.DetailDAO">
 
 <select id="detail">
-	SELECT * , a.au_acccnt
+	SELECT * , a.au_acccnt,a.au_status
 	FROM movie_info i
 	JOIN movie_audience a
 	WHERE i.mv_code=#{mv_code} AND a.mv_code=#{mv_code}

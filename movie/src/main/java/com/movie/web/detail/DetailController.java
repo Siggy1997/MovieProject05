@@ -17,8 +17,10 @@ public class DetailController {
 	@GetMapping("/detail")
 	public String detailPage(@RequestParam("mv_code") String mv_code, Model model) {
 		Map<String, Object> detail = detailService.detail(mv_code);
-		model.addAttribute("detail", detail);
+		String[] au_img =((String)detail.get("au_img")).split("\\|");
 		
+		model.addAttribute("detail", detail);
+		model.addAttribute("au_img", au_img);
 	    return "detail"; 
 	}
 	
