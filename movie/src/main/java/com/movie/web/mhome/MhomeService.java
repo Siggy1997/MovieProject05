@@ -208,11 +208,13 @@ public class MhomeService {
 
 		}
 
+		String dbposters=null;
+		
 		for (Object infoObject : resultarray) {
 			JSONObject movieinfo = (JSONObject) infoObject;
 			posters = (String) movieinfo.get("posters"); // 포스터
 
-			String dbposters = movieDAO.poster(movieNm);
+			 dbposters = movieDAO.poster(movieNm);
 			System.out.println("dbpost" + dbposters);
 
 			if (posters == null) {
@@ -242,7 +244,8 @@ public class MhomeService {
 		String mainVod = null;
 		String teaserVod = null;
 		String trailerVod = null;
-
+	
+		
 		for (Object infoObject : resultarray) {
 			JSONObject movieinfo = (JSONObject) infoObject;
 			movieinfo = (JSONObject) movieinfo.get("vods"); // 메인예고편만 지정해서 저장하기1
@@ -254,7 +257,7 @@ public class MhomeService {
 				String vodClass = (String) movieinfo1.get("vodClass"); // 기본값으로 빈 문자열을 설정
 				String vodUrl = (String) movieinfo1.get("vodUrl"); // 기본값으로 빈 문자열을 설정
 
-		
+	
 
 				if (vodClass != null) {
 					if (vodClass.contains("메인") && mainVod == null) {
@@ -273,19 +276,25 @@ public class MhomeService {
 				break;
 			}
 		}
-
+		String dbvod =null;
+		dbvod = movieDAO.dbvod(movieNm);
+		
 		// 메인, 티저, 예고편 vod 중 우선순위에 따라 하나를 선택하여 사용
-		if (mainVod != null) {
+		if (mainVod != null && ( dbvod == null || dbvod.isEmpty())) {
 			vod = mainVod;
-		} else if (teaserVod != null) {
+		} else if (teaserVod != null && ( dbvod == null || dbvod.isEmpty())) {
 			vod = teaserVod;
-		} else if (trailerVod != null) {
+		} else if (trailerVod != null && ( dbvod == null || dbvod.isEmpty())) {
 			vod = trailerVod;
-		} else {
+		} else if (dbvod != null) {
+			vod = dbvod;
+			
+		} else { 
 			vod = "예고편이 없습니다. 직접 입력해주세요";
+			
 		}
 
-	
+		String dbplot = null;
 
 		for (Object infoObject : resultarray) {
 			JSONObject movieinfo = (JSONObject) infoObject;
@@ -297,18 +306,24 @@ public class MhomeService {
 				JSONObject movieinfo1 = (JSONObject) infoObject1;
 				String plotlang = (String) movieinfo1.get("plotLang");
 				String plottext = (String) movieinfo1.get("plotText"); // 마지막
+				 dbplot = movieDAO.dbplot(movieNm);
+				//System.out.println(plotlang);
+				
+				
+				if (plottext == null || plottext.isEmpty()) {
 
-				System.out.println(plotlang);
-				if (plottext != null && plotlang.contains("한국어")) {
-
-					plot = plottext;
-					break;
-				}
-
-				if (plot == null || plot.isEmpty()) {
 					plot = "줄거리가 없습니다.";
+
+				} else if (plottext != null && dbplot != null) {
+
+					plot = dbplot;
+
+				} else if (plottext != null && dbplot == null && plotlang.contains("한국어") ) {
+					plot = plottext;
 				}
 
+				
+				
 			}
 		}
 

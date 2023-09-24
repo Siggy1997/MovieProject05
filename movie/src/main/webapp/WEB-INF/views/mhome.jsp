@@ -18,7 +18,7 @@
 	var sortValue = 0; // 분류값
 	var type = 0; //분류값 개봉,개봉예정구분
 	var moviesPerPage = 5; //영화제한개수
-
+	
 	//#1.페이지 로드시 영화목록 박스오피스 순으로 정렬해서 출력하기 
 	$(document).ready(function() {
 
@@ -169,14 +169,14 @@
 
 		//moviecnt++;
 		var movieListContainer = $("#movieList");
-
-		//movieList.push(movie);  // 배열에 영화 업데이트 될떄마다 넣어주기
+			
 
 		//더보기 추가버튼 페이지개수 제한
 
 		var update = movie;
 		var listItem = $("<li>").addClass("no-img");
 		var grade = movie.mv_grade;
+		
 
 		movie.formattedDate = formatDate(movie.mv_sdate);
 
@@ -209,7 +209,7 @@
 												"datacode(" + movie.mv_code + ")").text(movie.mv_name)),
 						$("<div>").addClass("rate-date").append(
 								$("<span>").addClass("rate")
-										.text("예매율 " + "예정"),
+										.text("예매율 "+ movie.mv_rate +"위"),
 								$("<span>").addClass("date").text(
 										"개봉일 " + movie.formattedDate)),
 						$("<div>")
@@ -229,7 +229,10 @@
 																		"data-no",
 																		movie.mv_code)
 																.attr("title",
-																		"영화 예매하기")
+																		"영화 예매하기").attr(
+																				"data-no",
+																				movie.mv_code).attr("onclick",
+																						"sendToReservation(" + movie.mv_code + ")")
 																.text("예매"),
 														$("<a>")
 																.attr("href",
@@ -245,7 +248,9 @@
 				);
 
 		// 영화 항목을 목록에 추가
+			
 		movieListContainer.append(listItem);
+
 
 	}
 
@@ -254,23 +259,28 @@
 
 		var datacode = mv_code;
 
-		//alert(datacode); // 디테일작업시 확인후 삭제 
+		
 
-		sendToController(datacode); //컨트롤러에 보내줄 함수 만들어야됨
+		sendToController(datacode); 
 
 	}
-	
+	//# 큰영화사진,포스터,상세정보,영화제목 클릭시 디테일로 이동
 	function sendToController(datacode) {
 	    window.location.href = "/detail?mv_code=" + datacode;
+	}
+	
+	//# 예매 클릭시 예약페이지로 이동 
+	function sendToReservation(datacode) {
+	    window.location.href = "/reservation?mv_code=" + datacode;
 	}
 </script>
 
 </head>
 <body>
-
+	<%@ include file="menu.jsp"%>
 	
 	<div id="visual_top" class="visual_top visual_movie_home"
-	style="margin-top: 120px;">
+	>
 
 	<div class="inner">
 

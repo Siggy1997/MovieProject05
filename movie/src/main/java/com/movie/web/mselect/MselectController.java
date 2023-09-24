@@ -17,12 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MselectController {
 	@Autowired
 	private MselectService mselectService;
-
-	@GetMapping("/mselect")
-	public String mselect(Model model) {
+	
+	@GetMapping("/reservation")
+	public String mselect(Model model, @RequestParam(name = "mv_code", required = true, defaultValue = "") String pmv_code) {
+		
+		
+		model.addAttribute("pmv_code", pmv_code);
 		
 		// 영화 이름 뽑아내기
 		List<String> movielist = mselectService.movie();
+		JSONObject json = new JSONObject();
+		json.put("movielist", movielist);
 		model.addAttribute("movielist", movielist);// mv_name
 
 		// 극장 뽑아내기
@@ -30,8 +35,19 @@ public class MselectController {
 		model.addAttribute("theaterlist", theaterlist);// seoul, daejeon, gangwon, busan, gwangju, th_area
 		model.addAttribute("theaterlist_length", theaterlist.size());
 		
-		return "mselect";
+		return "reservation";
 			
+	}
+	
+	@ResponseBody
+	@PostMapping("/mv_code")
+	public String mselect(@RequestParam(name = "mv_code", required = false) String mv_code) {
+		Map<String, Object> j_movielist = mselectService.mv_code(mv_code);
+		JSONObject json = new JSONObject();
+		json.put("j_movielist", j_movielist);
+		System.out.println(json.toString());
+		
+		return json.toString();
 	}
 	
 	//영화 선택
@@ -119,7 +135,7 @@ public class MselectController {
 		return json.toString();
 	}
 	
-	@PostMapping("/mselect")
+	@PostMapping("/reservation")
 	public String mselect(@RequestParam Map<String, Object> map) {
 		//System.out.println(map);
 		//{final_date=2023914, final_th_kind=4, final_ms_idx=14}
@@ -133,9 +149,21 @@ public class MselectController {
 			return "redirect:/reseat2?ms_idx="+ ms_idx+"&date="+date;
 		} else if (th_kind.equals("3")) {
 			return "redirect:/reseat3?ms_idx="+ ms_idx+"&date="+date;
-		} else {
+		} else  if (th_kind.equals("4")) {
 			return "redirect:/reseat4?ms_idx="+ ms_idx+"&date="+date;
+		} else {
+			return "redirect:/reservation";
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping("/menu")
+	public String mlist() {
+		List<Map<String, Object>> mlist = mselectService.mlist();
+		JSONObject json = new JSONObject();
+		json.put("mlist", mlist);
+		System.out.println(json.toString());
+		return json.toString();
 	}
 
 }

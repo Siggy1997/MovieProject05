@@ -51,6 +51,10 @@ public interface MhomeDAO {
 
 	List<Movie> list5();
 
+	String dbplot(String movieNm);
+
+	String dbvod(String movieNm);
+
 
 
 

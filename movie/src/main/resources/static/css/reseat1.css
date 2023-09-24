@@ -1,11 +1,15 @@
 @charset "UTF-8";
 
+body{
+	 font-family: 'LINESeedKR-Rg';
+}
 
 .aseats {
 	width: 600px;
 	float: left;
 	position:relative;
-	left: 30%;
+	left: 20%;
+	top: 30px;
 
 }
 .space{
@@ -90,7 +94,7 @@
 	border-radius: 15px;
 	float: left;
 	position: relative;
-	left: 30%;
+	left: 20%;
 	background-color: #424242;
 	color: white;
 }

@@ -110,28 +110,27 @@
 	
 	<select id="list" resultType="Movie">
 	
-	SELECT mi.mv_code,.mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
-	mi.mv_gradeimg,ma.au_status
+	SELECT mi.mv_code,.mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
+		   mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi 
-	inner join movie_audience ma 
-	ON mi.mv_code = ma.mv_code
-	ORDER BY mi.mv_audi_d_cnt desc
+	inner join movie_audience ma ON mi.mv_code = ma.mv_code
+	ORDER BY mi.mv_rate
 
 	
 	</select>
 	
 	<select id="list1" resultType="Movie">
 	
-	SELECT mi.mv_code,.mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
+	SELECT mi.mv_code,.mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
 			mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi 
 	inner join movie_audience ma ON mi.mv_code = ma.mv_code
-	ORDER BY mi.mv_rate desc
+	ORDER BY mi.mv_rate
 	</select>
 	
 	<select id="list2" resultType="Movie">
 	
-	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
+	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
 		mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi
 	JOIN movie_audience ma 
@@ -143,7 +142,7 @@
 	
 		<select id="list3" resultType="Movie">
 	
-	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
+	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
 	mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi
 	JOIN movie_audience ma 
@@ -153,7 +152,7 @@
 	
 	<select id="list4" resultType="Movie">
 	
-	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
+	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
 	mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi
 	JOIN movie_audience ma 
@@ -164,7 +163,7 @@
 	
 	<select id="list5" resultType="Movie">
 	
-	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,
+	SELECT mi.mv_code,mi.mv_name,mi.mv_grade,mi.mv_poster,mi.mv_sdate,mi.mv_rate,
 	mi.mv_gradeimg,ma.au_status
 	FROM movie_info mi
 	JOIN movie_audience ma 
@@ -180,6 +179,18 @@
 	<select id="poster" resultType="String">
 		 SELECT mv_poster FROM movie_info WHERE REPLACE(mv_name, ' ', '') = REPLACE(#{movieNm}, ' ', '')
 	</select>
+	
+	<select id="dbplot" resultType="String">
+		 SELECT mv_sinop FROM movie_info WHERE REPLACE(mv_name, ' ', '') = REPLACE(#{movieNm}, ' ', '')
+	</select>
+	
+	<select id="dbvod" resultType="String">
+		 SELECT ma.au_trailer 
+ 		 FROM movie_audience ma
+		 INNER JOIN movie_info mi ON ma.mv_code = mi.mv_code
+		 WHERE REPLACE(mi.mv_name, ' ', '') =REPLACE(#{movieNm}, ' ', '')
+	</select>
+	
 
 
 

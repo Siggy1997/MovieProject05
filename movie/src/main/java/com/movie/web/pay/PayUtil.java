@@ -43,12 +43,12 @@ public class PayUtil {
 	      String msStime = (String) mailmail.get("msStime");
 	      String msEtime = (String) mailmail.get("msEtime");
 	      String thCity = (String) mailmail.get("thCity");
-	      String thIdx = (String) mailmail.get("thIdx");
+	      String thKind = (String) mailmail.get("thKind");
 	      String adultNum = (String) mailmail.get("adultNum");
 	      String youthNum = (String) mailmail.get("youthNum");
 	      String specialNum = (String) mailmail.get("specialNum");
 	      String seat = (String) mailmail.get("seat");
-	      String randomNum = (String) mailmail.get("randomNum");
+	      String randomNum = (String) mailmail.get("rsNum");
 	      
 	      System.out.println(msSdate);
 	      
@@ -57,8 +57,10 @@ public class PayUtil {
 	   
 	     
 	      //이미지 경로 잡아오기
-	      String img = "static/img/logo.png"; // 이미지 파일명
+	      String img = "static/img/logo1.png"; // 이미지 파일명
+	      String img2 = "static/img/QR코드2.png"; // 이미지 파일명
 	      String base64Image = getImageBase64(img);
+	      String base64Image2 = getImageBase64(img2);
 
 	      
 	      String html = "<html>";
@@ -73,14 +75,13 @@ public class PayUtil {
 	      html += "<h3>상영시간</h3>";
 	      html += "<div>"+ msStime + "~" + msEtime +"</div><br>";
 	      html += "<h3>상영관</h3>";
-	      html += "<div>"+ thCity + " " + thIdx +"관</div><br>";
+	      html += "<div>"+ thCity + " " + thKind +"관</div><br>";
 	      html += "<h3>좌석</h3>";
 	      html += "<div>"+ seat +"</div><br>";
 	      html += "<div>성인 : "+ adultNum +"명, 청소년 : " + youthNum + "명, 우대 : " + specialNum + "명</div><br>";
 	      
-	      
 	      html += "<h3> DreamBox와 함께 즐거운 관람 되시기를 바랍니다.</h3>";
-	      // html += " 예약하신 영화는 ${tcInfo.mv_name} 입니다";
+	      html += "<img alt=\"이미지\" src='data:image/png;base64," + base64Image2 + "'>";
 	      html += "</html>";
 	      mail.setHtmlMsg(html);
 	   

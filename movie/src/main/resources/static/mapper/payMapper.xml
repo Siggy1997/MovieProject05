@@ -4,10 +4,8 @@
 
 
 
-
-
-   <select id="couponList" resultType="Map">
-   SELECT m_no, rs_coupon, rs_admission, rs_cindex, rs_aindex, rs_discount FROM reservation_coupon WHERE m_no="1"
+   <select id="couponList" parameterType="Integer" resultType="Map">
+   SELECT m_no, rs_coupon, rs_admission, rs_cindex, rs_aindex, rs_discount FROM reservation_coupon WHERE m_no=#{mno}
    </select>
 
    <select id="couponChk" parameterType="String" resultType="Integer">
@@ -18,7 +16,7 @@
 
    <update id="couponUpdate" parameterType="Map">
    UPDATE reservation_coupon SET
-      m_no="1" WHERE rs_coupon = #{cCode}
+      m_no=#{mno} WHERE rs_coupon = #{cCode}
    </update>
 
    <select id="couDiscount" parameterType="String" resultType="Integer">
@@ -34,7 +32,7 @@
 
    <update id="admUpdate" parameterType="Map">
    UPDATE reservation_coupon SET
-      m_no="1" WHERE rs_admission = #{aCode}
+      m_no=#{mno} WHERE rs_admission = #{aCode}
    </update>
    
    <update id="couDelete" parameterType="List">
@@ -53,13 +51,13 @@
   </update>
    
    
-   <select id="havePoint" resultType="Map">
-   SELECT m_point FROM members WHERE m_no="1"
+   <select id="havePoint" parameterType="Integer" resultType="Map">
+   SELECT m_point FROM members WHERE m_no=#{mno}
    </select>
 
-      <update id="updatePoint" parameterType="Integer">
+      <update id="updatePoint" parameterType="Map">
       UPDATE members SET
-      m_point=#{newPoint} WHERE m_no="1"
+      m_point=#{newPoint2} WHERE m_no=#{mno}
    </update>
 
    <select id="charge" parameterType="String" resultType="Map">
@@ -67,19 +65,19 @@
    WHERE rs_cname = #{cardSelect}
    </select>
 
-<select id="cardChk" resultType="Integer">
+<select id="cardChk" parameterType="Integer" resultType="Integer">
    SELECT COUNT(*) FROM reservation_card
-   WHERE m_no = "1"
+   WHERE m_no = #{mno}
    </select>
    
-      <select id="cardList" resultType="Map">
+      <select id="cardList" parameterType="Integer" resultType="Map">
    SELECT rs_cname, rs_cnum FROM reservation_card
-   WHERE m_no = "1"
+   WHERE m_no = #{mno}
    </select>
    
-   <update id="cardUpdate" parameterType="String">
+   <update id="cardUpdate" parameterType="Map">
    UPDATE reservation_card SET
-      m_no="1" WHERE rs_cnum = #{cardNum}
+      m_no=#{mno} WHERE rs_cnum = #{cardNum}
    </update>
    
    <select id="ticketInfo" parameterType="Map" resultType="Map">
@@ -94,8 +92,8 @@ WHERE ms.ms_idx =#{ms_idx}
    </select>
    
    <insert id="rsData" parameterType="Map">
-		INSERT INTO reservation_info (mv_idx, ms_idx, m_no, rs_id, rs_count, rs_status, rs_date)
-		VALUES((SELECT mv_idx FROM movie_info WHERE mv_name=#{mvName}), #{msIdx}, #{mno}, #{randomNum}, #{peopleNum}, "1", NOW())	 
+		INSERT INTO reservation_info (mv_idx, ms_idx, m_no, rs_id, rs_count, rs_status, rs_date, ri_adult, ri_youth, ri_special, ss_seat)
+		VALUES((SELECT mv_idx FROM movie_info WHERE mv_name=#{mvName}), #{msIdx}, #{mno}, #{rsNum}, #{peopleNum}, "1", NOW(), #{adultNum}, #{youthNum}, #{specialNum}, #{seat})	 
 	</insert>
 	
 	   <select id="email" parameterType="Integer" resultType="Map">
@@ -107,6 +105,12 @@ WHERE ms.ms_idx =#{ms_idx}
       ss_res="A" WHERE ms_idx=#{msIdx} AND ss_seat=#{seat}
    </update>
    
+   <insert id="record" parameterType="Map">
+		INSERT INTO reservation_payment (m_no, rp_payment, rp_pay, rp_savepoint, rp_usepoint, m_point, rs_id)
+		VALUES(#{mno}, #{rpPayment}, #{amount}, #{savePoint}, #{usePoint}, #{newPoint2}, #{rsNum})	 
+	</insert>
+
+	
 
 
 </mapper>

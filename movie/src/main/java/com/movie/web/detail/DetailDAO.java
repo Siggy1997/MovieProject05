@@ -8,5 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface DetailDAO {
 
 	Map<String, Object> detail(String mv_code);
-
+	String movie(String mv_name);
 }

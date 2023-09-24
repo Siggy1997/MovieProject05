@@ -24,4 +24,8 @@ public interface MselectDAO {
 
 	List<Map<String, Object>> specialtime(Map<String, Object> map);
 
+	List<Map<String, Object>> mlist();
+
+	Map<String, Object> mv_code(String mv_code);
+
 }

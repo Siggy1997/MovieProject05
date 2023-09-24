@@ -3,10 +3,16 @@
 <mapper namespace="com.movie.web.mselect.MselectDAO">
 
 	<select id="movie" resultType="Map">
-		SELECT mi.mv_name mv_name, mi.mv_gradeimg
+		SELECT mi.mv_name, mi.mv_gradeimg, mi.mv_code
 		FROM movie_info mi
 		JOIN movie_audience ma ON mi.mv_code = ma.mv_code
 		WHERE au_status="개봉"
+	</select>
+	
+	<select id="mv_code" parameterType="String" resultType="Map">
+		SELECT *
+		FROM movie_info
+		WHERE mv_code = #{mv_code}
 	</select>
 	
 	<select id="theater" resultType="Map">
@@ -64,6 +70,12 @@
 		FROM timetableview t
 		JOIN theater_info ti ON ti.th_combine = t.ms_combine
 		WHERE ti.th_city = #{selCity} AND t.mv_name = #{selFilm} AND ti.th_kind = #{selKind}
+	</select>
+	
+	<select id="mlist" resultType="Map">
+		SELECT *
+		FROM movie_info
+		limit 0,5
 	</select>
 	
 </mapper>

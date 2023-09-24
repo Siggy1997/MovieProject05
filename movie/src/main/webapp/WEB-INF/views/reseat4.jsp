@@ -17,9 +17,11 @@
 	$(function() {
         let countnow;
         let svallist=[];
-    	  		
+        
+        let date = $(".date").text();
+        dateformat = date.substring(0,4)+"년 " + date.substring(4,6)+"월 "+date.substring(6,8)+"일"
 		$(".N").parent().css("background-color", "red")
-
+		$(".date").text(dateformat);
 		$(".up").click(
 				function() {
 					let nownum = parseInt($(this).siblings(".now").text());
@@ -281,6 +283,7 @@
 			form.append($("<input>",{type:'hidden', name:"adult", value:$(".now1").text()}));
 			form.append($("<input>",{type:'hidden', name:"youth", value:$(".now2").text()}));
 			form.append($("<input>",{type:'hidden', name:"special", value:$(".now3").text()}));
+			form.append($("<input>",{type:'hidden', name:"date", value:date}));
 			form.appendTo("body");
 			form.submit();
 			}else{
@@ -299,7 +302,6 @@
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
-	<h1>RESEAT</h1>
 	<div class="aseats">
 	<div class="countppl-box">
 		<div class="countppl">
@@ -458,7 +460,7 @@
 </div>
 
 				<div>${movieschedule.th_kind }관</div>
-				<div>${movieschedule.ms_sdate }</div>
+				<div class="date">${date }</div>
 				<br>
 				<div>상영시간 : ${movieschedule.ms_stime } ~ ${movieschedule.ms_etime }</div>
 				<div>${movieschedule.mv_runtime }분</div>

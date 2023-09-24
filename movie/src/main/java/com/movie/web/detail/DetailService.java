@@ -13,4 +13,8 @@ public class DetailService {
 	public Map<String, Object> detail(String mv_code) {
 		return detailDAO.detail(mv_code);
 	}
+	
+	public String movie(String mv_name) {
+		return detailDAO.movie(mv_name);
+	}
 }

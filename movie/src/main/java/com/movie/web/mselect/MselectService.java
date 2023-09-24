@@ -42,5 +42,14 @@ public class MselectService {
 	public List<Map<String, Object>> specialtime(Map<String, Object> map) {
 		return mselectDAO.specialtime(map);
 	}
+
+	public List<Map<String, Object>> mlist() {
+		return mselectDAO.mlist();
+	}
+
+	public Map<String, Object> mv_code(String mv_code) {
+		return mselectDAO.mv_code(mv_code);
+	}
+
 	
 }

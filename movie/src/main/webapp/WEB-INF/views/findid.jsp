@@ -12,72 +12,74 @@
 <%@ include file="menu.jsp"%>
 <script type="text/javascript">
 	$(function() {
-		$("#findid")
-			.on(
-				'input',
-				function () {
-					// 이메일 검증 스크립트 작성
-					var emailVal = $("#findid").val();
-					const msgBox = $(this).siblings(".msg_box");
+		$("#findid").on('input', function() {
+			var emailVal = $("#findid").val();
+			const msgBox = $(this).siblings(".msg_box");
 
-					var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-					// 검증에 사용할 정규식 변수 regExp에 저장
+			var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-					if (emailVal.match(regExp) != null) {
-						msgBox.text("확인되었습니다.");
-
-					} else {
-						msgBox.text("잘못된 이메일 형식입니다.");
-					}
-				});
+			if (emailVal.match(regExp) != null) {
+				msgBox.text("확인되었습니다.");
+			} else {
+				msgBox.text("잘못된 이메일 형식입니다.");
+			}
+		});
 
 		$(".logbtn").hide();
 		$(".pwbtn").hide();
-	$(".fbtn").click(function() {
 
-		let findid = $("#findid").val();
+		$(".fbtn").click(function() {
+			let findid = $("#findid").val();
 
-	if (findid != null) {
-
-		$.ajax({
-			url: "./findid",
-			type: "post",
-			data: {
-				findid: findid
-			},
-			dataType: "json",
-			success: function (data) {
-				if (data.m_id != null) {
-					$("#msg")
-						.text(
-							data.m_name
-							+ " 님의 아이디는 "
-							+ data.m_id
-							+ " 입니다. ")
-						.css({
-								
-							color: "black",
-							fontSize: "16px",
-							fontWeight: "bold"
-							});
-					$(".fbtn").hide();
-					$(".logbtn").show();
-		    		$(".pwbtn").show();
-
-				} else {
-					alert("입력하신 이메일로 회원가입 되어있는 계정이 없습니다. 다시 확인해주세요.");
-				}
-			},
-			error: function (error) {
-				$("#msg")
-					.text(
-						"일치하는 아이디가 없습니다. 다시 시도해주세요.");
+			if (findid != null) {
+				$.ajax({
+					url: "./findid",
+					type: "post",
+					data: {
+						findid: findid
+					},
+					dataType: "json",
+					success: function(data) {
+						if (data.m_id != null) {
+							if (data.naver != null) {
+								$("#msg")
+									.text(data.naver)
+									.css({
+										color: "black",
+										fontSize: "16px",
+										fontWeight: "bold"
+									});
+			
+							} else {
+								$("#msg")
+									.text(
+										data.m_name +
+										" 님의 아이디는 " +
+										data.m_id +
+										" 입니다. "
+									)
+									.css({
+										color: "black",
+										fontSize: "16px",
+										fontWeight: "bold"
+									});
+							}
+								$(".fbtn").hide();
+								$(".logbtn").show();
+								$(".pwbtn").show();
+						} else {
+							alert("입력하신 이메일로 회원가입 되어있는 계정이 없습니다. 다시 확인해주세요.");
+						}
+					},
+					error: function(xhr, status, error) {
+					    console.error("에러 발생:", status, error); // 구체적인 오류 메시지를 콘솔에 출력합니다.
+					    $("#msg").text("에러가 발생했습니다. 관리자에게 문의해주세요.");
+					}
+				});
+			} else {
+				alert("아이디를 입력하세요.");
 			}
 		});
-							} else {
-		alert("아이디를 입력하세요.")
-	}
-						});
 	});
 </script>
 

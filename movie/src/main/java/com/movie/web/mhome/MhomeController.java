@@ -46,6 +46,7 @@ public class MhomeController {
 		String mv_sdate = "";
 		String mv_gradeimg = "";
 		String au_status = "";
+		String mv_rate="";
 
 		if (sort == 0) {
 			// 박스오피스 기준정렬 기본값
@@ -60,6 +61,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
+				movieJson.put("mv_rate", movie.getMv_rate());
 
 				jsonArray.add(movieJson);
 			}
@@ -76,6 +78,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
+				movieJson.put("mv_rate", movie.getMv_rate());
 
 				jsonArray.add(movieJson);
 			}
@@ -93,6 +96,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
+				movieJson.put("mv_rate", movie.getMv_rate());
 
 				jsonArray.add(movieJson);
 			}
@@ -108,6 +112,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
+				movieJson.put("mv_rate", movie.getMv_rate());
 
 				jsonArray.add(movieJson);
 			}
@@ -124,7 +129,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
-
+				movieJson.put("mv_rate", movie.getMv_rate());
 				jsonArray.add(movieJson);
 			}
 
@@ -140,6 +145,7 @@ public class MhomeController {
 				movieJson.put("mv_sdate", movie.getMv_sdate());
 				movieJson.put("mv_gradeimg", movie.getMv_gradeimg());
 				movieJson.put("au_status", movie.getAu_status());
+				movieJson.put("mv_rate", movie.getMv_rate());
 
 				jsonArray.add(movieJson);
 			}
@@ -147,6 +153,7 @@ public class MhomeController {
 		}
 
 		json.put("list", jsonArray);
+		System.out.println("예매율순위확인"+json.toString());
 
 		return ResponseEntity.ok(json.toString());
 	}
@@ -163,7 +170,7 @@ public class MhomeController {
 //전날 박스오피스 조회 ( 전일자 기준 으로 조회)
 
 		LocalDateTime time = LocalDateTime.now().minusDays(1);
-		String targetDt = time.format(DateTimeFormatter.ofPattern("yyyMMdd"));
+		String targetDt = time.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
 		System.out.println(targetDt);
 		urlBuilder.append("&" + URLEncoder.encode("targetDt", "UTF-8") + "=" + URLEncoder.encode(targetDt, "UTF-8")); // kmdb
@@ -220,7 +227,7 @@ public class MhomeController {
 
 		List<String> result1 = movieService.movieCd(); // 데이터베이스에서 고유번호 가져오기
 
-		System.out.println(result1.toString());
+		//System.out.println(result1.toString());
 
 		for (String movieCd : result1) {
 			StringBuilder urlBuilder = new StringBuilder(

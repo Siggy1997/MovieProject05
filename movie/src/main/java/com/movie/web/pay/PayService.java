@@ -11,16 +11,16 @@ public class PayService {
    @Autowired
    private PayDAO payDAO;
 
-   public List<Map<String, Object>> couponList() {
-      return payDAO.couponList();
+   public List<Map<String, Object>> couponList(int mno) {
+      return payDAO.couponList(mno);
    }
 
-   public Map<Integer, Object> havePoint() {
-      return payDAO.havePoint();
+   public Map<Integer, Object> havePoint(int mno) {
+      return payDAO.havePoint(mno);
    }
 
-   public void updatePoint(int newPoint) {
-      payDAO.updatePoint(newPoint);
+   public void updatePoint(Map<String, Object> map) {
+      payDAO.updatePoint(map);
    }
 
    //public Map<Integer, Object> ticketPrice() {
@@ -45,20 +45,20 @@ public class PayService {
 	   }
    
 
-   public Map<String, Object> charge(String cardSelect) {
+   public List<Map<String, Object>> charge(String cardSelect) {
       return payDAO.charge(cardSelect);
    }
 
-    public int cardChk() {
-         return payDAO.cardChk();
+    public int cardChk(int mno) {
+         return payDAO.cardChk(mno);
       }
 
-      public List<Map<String, Object>> cardList() {
-            return payDAO.cardList();
+      public List<Map<String, Object>> cardList(int mno) {
+            return payDAO.cardList(mno);
          }
 
-   public void cardUpdate(String cardNum) {
-      payDAO.cardUpdate(cardNum);
+   public void cardUpdate(Map<String, Object> map) {
+      payDAO.cardUpdate(map);
    }
 
    public int couDiscount(String selectCoupon) {
@@ -101,5 +101,13 @@ public class PayService {
 	
 	public void admDelete(List<String> selectAdm) {
 		payDAO.admDelete(selectAdm);
+	}
+
+	public String rsNumber() {
+		return payDAO.rsNumber();
+	}
+
+	public void record(Map<String, Object> map) {
+		payDAO.record(map);
 	}
 }

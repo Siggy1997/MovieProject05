@@ -108,7 +108,6 @@
 <body>
 	<%@ include file="menu.jsp"%>
 
-	<h1>THEATER INFO</h1>
 	<div class="box">
 		<div class="menubar">
 			<div class="mhome">HOME</div>

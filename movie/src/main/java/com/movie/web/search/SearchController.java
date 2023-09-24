@@ -16,4 +16,11 @@ public class SearchController {
 		return "/search";
 	}
 	
+	@GetMapping("/test")
+	public String test() {
+		
+		
+		return "/test";
+	}
+	
 }

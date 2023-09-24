@@ -20,163 +20,198 @@
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
-	<h1>PAY</h1>
+	<h1 id="title">PAY</h1>
 
-	<!-- <div id="movieNum">${msIdx}</div> -->
-	
-<br>
-	영화제목
-	<br>
-	<div id="movieName">${tcInfo.mv_name}</div>
-	<br>
-	<br>
-	<br> 상영일
-	<br> ${tcInfo.ms_sdate}
-	<br> 상영시간
-	<br> ${tcInfo.ms_stime} ~ ${tcInfo.ms_etime}
-	<br> 상영관
-	<div id="theaterName">${tcInfo.th_city}</div>
-	<div id="theaterNum">${tcInfo.th_idx}관</div>
-
-	<br>
-	<div id="adult">성인 ${adult}명,</div>
-	<div id="youth">청소년 ${youth}명,</div>
-	<div id="special">우대 ${special}명</div>
-	<br> ${list }
+	<!--
+		<form id="rsNum" action="/pay" method="post">
+      <input type="hidden" name="rsNum" value="${rsNum}"> 
+	 </form>  -->
 
 
+	<div id="between">
+		<div id="movieInfo">
+			<br>
+			<br> 영화제목 <br>
+			<div id="movieName">${tcInfo.mv_name}</div>
+			<br> <br> 상영일 <br> ${tcInfo.ms_sdate}<br> <br>
+			상영시각 <br> ${tcInfo.ms_stime} ~ ${tcInfo.ms_etime}<br> <br>
+			상영관
+			<div id="theaterName">${tcInfo.th_city}${tcInfo.th_kind}관</div>
+			<br> <br>좌석정보
+			<div id="adult">성인 ${adult}명,</div>
+			<div id="youth">청소년 ${youth}명,</div>
+			<div id="special">우대 ${special}명</div>
+			<br> ${list }
+		</div>
 
-	<br>
-	
-	
-	<!-- 할인쿠폰 버튼 -->
-	<button type="button" id="modal_open_btn">할인쿠폰</button>
+		<br>
 
-	<div id="modal">
-		<div class="modal_content">
-			<h2>할인쿠폰</h2>
-			쿠폰 등록 <input type="text" name="couponCode" id="couponCode">
-			<button id="couponCheck">등록</button>
 
-			<c:forEach items="${couponList}" var="c">
-				<c:if test="${not empty c.rs_coupon}">
-					<input type="checkbox" class="chk" id="cchk"
-						data-coupon="${c.rs_coupon}">
+
+
+		<!-- 할인쿠폰 버튼 -->
+		<button type="button" id="modal_open_btn">할인쿠폰</button>
+
+		<div id="modal">
+			<div class="modal_content">
+				<div class="modal-header">
+					<h2 class="modal-title">할인쿠폰</h2>
+				</div>
+
+				<div class="modal-code">
+					쿠폰 등록 <input type="text" name="couponCode" id="couponCode"
+						placeholder="쿠폰번호 16자리를 입력해주세요">
+					<button id="couponCheck">등록</button>
+				</div>
+
+				<div class="modal-body">
+					<c:forEach items="${couponList}" var="c">
+						<c:if test="${not empty c.rs_coupon}">
+							<input type="checkbox" class="chk" id="cchk"
+								data-coupon="${c.rs_coupon}">
                ${c.rs_cindex} ${c.rs_coupon}<p>
-				</c:if>
-			</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="modal-foot">
+					<button type="button" class="submit_btn" id="modal_submit_btn">적용</button>
+					<button type="button" id="modal_close_btn">취소</button>
+				</div>
 
-			<button type="button" id="modal_submit_btn">적용</button>
-			<button type="button" id="modal_close_btn">취소</button>
-
+			</div>
+			<div class="modal_layer"></div>
 		</div>
-		<div class="modal_layer"></div>
-	</div>
 
 
-	<p>
+		<p>
 
-<!-- 관람권 버튼 -->
-		<button type="button" id="modal_open_btn2">관람권</button>
-	<div id="modal2">
-		<div class="modal_content">
-			<h2>관람권</h2>
-			
-			관람권 등록 <input type="text" name="admCode" id="admCode">
-			<button id="admCheck">등록</button>
-			
-			<c:forEach items="${couponList}" var="a">
-				<c:if test="${not empty a.rs_admission && empty a.rs_aindex && 
-				(tcInfo.th_idx == 1 || tcInfo.th_idx == 2) }">
-									<input type="checkbox" class="chk" id="achk"
-						data-adm="${a.rs_admission}">
+			<!-- 관람권 버튼 -->
+			<button type="button" id="modal_open_btn2">관람권</button>
+		<div id="modal2">
+			<div class="modal_content">
+				<div class="modal-header">
+					<h2 class="modal-title">관람권</h2>
+				</div>
+
+				<div class="modal-code">
+					관람권 등록 <input type="text" name="admCode" id="admCode"
+						placeholder="관람권번호 12자리를 입력해주세요">
+					<button id="admCheck">등록</button>
+				</div>
+
+				<div class="modal-body">
+					<c:forEach items="${couponList}" var="a">
+						<c:if
+							test="${not empty a.rs_admission && empty a.rs_aindex && 
+				(tcInfo.th_kind == 1 || tcInfo.th_kind == 2) }">
+							<input type="checkbox" class="chk" id="achk"
+								data-adm="${a.rs_admission}">
                [2D] ${a.rs_admission}<p>
-				</c:if>
-			</c:forEach>
-			<c:forEach items="${couponList}" var="b">
-				<c:if test="${not empty b.rs_admission && not empty b.rs_aindex && (tcInfo.th_idx == 3 || tcInfo.th_idx == 4)}">
-									<input type="checkbox" class="chk" id="achk"
-						data-adm="${b.rs_admission}">
+						</c:if>
+					</c:forEach>
+					<c:forEach items="${couponList}" var="b">
+						<c:if
+							test="${not empty b.rs_admission && not empty b.rs_aindex && (tcInfo.th_kind == 3 || tcInfo.th_kind == 4)}">
+							<input type="checkbox" class="chk" id="achk"
+								data-adm="${b.rs_admission}">
                ${b.rs_aindex}${b.rs_admission}<p>
-				</c:if>
-				</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
 
-
-			<button type="button" id="modal_submit_btn2">적용</button>
-			<button type="button" id="modal_close_btn2">취소</button>
+				<div class="modal-foot">
+					<button type="button" class="submit_btn" id="modal_submit_btn2">적용</button>
+					<button type="button" id="modal_close_btn2">취소</button>
+				</div>
+			</div>
+			<div class="modal_layer"></div>
 		</div>
-		<div class="modal_layer"></div>
+
+		<p>
+
+
+			<!-- 포인트 모달 -->
+			<button type="button" id="modal_open_btn3">포인트 조회</button>
+		<div id="modal3">
+			<div class="modal_content" id="modal_content3">
+				<div class="modal-header">
+					<h2 class="modal-title">포인트</h2>
+				</div>
+
+				<div class="modal-body" id="modal_body3">
+					보유 포인트 : ${havePoint.m_point} <br> 사용 포인트 :<input type="text"
+						name="usePoint" id="usePoint">
+				</div>
+				<div class="modal-foot">
+					<button class="submit_btn" id="modal_submit_btn3">적용</button>
+					<button id="modal_close_btn3">취소</button>
+				</div>
+
+			</div>
+			<div class="modal_layer"></div>
+		</div>
+
+
+		<br>
+		<br>
+		<button id="couponCancel">적용취소</button>
+		<br>
+
 	</div>
 
-	<p>
 
-
-		<!-- 포인트 모달 -->
-		<button type="button" id="modal_open_btn3">포인트 조회</button>
-	<div id="modal3">
-		<div class="modal_content">
-			<h2>포인트</h2>
-
-			보유 포인트 : ${havePoint.m_point}
-			<p>
-				사용 포인트 :<input type="text" name="usePoint" id="usePoint">
-
-				<button id="modal_submit_btn3">적용</button>
-				<button id="modal_close_btn3">취소</button>
+	<div id=price>
+		결제금액 <br>
+		<br> <br> 티켓금액 : <span id="ticketDisplay"></span>원 <br>
+		할인금액 : <span id="discountDisplay">0</span>원 <br>
+		<div id="amount">
+			최종 결제금액 : <span id="pamountDisplay"></span>원
 		</div>
-		<div class="modal_layer"></div>
 	</div>
 
 
+	<div id="payment">결제수단</div>
 
-	결제금액
-	<br>
-	<br> 티켓금액 :
-	<span id="ticketDisplay"></span>원
-	<br> 할인금액 :
-	<span id="discountDisplay">0</span>원
-	<br> 최종 결제금액 :
-	<span id="pamountDisplay"></span>원
+	<button type="button" id="cancel">결제 취소</button>
 
 
-
-	<br>
-	<br> 결제방식
-	<p>
-	
 	<!-- 일반결제 모달 -->
-		<button type="button" id="modal_open_btn4">일반 결제</button>
+	<button type="button" id="modal_open_btn4">일반 결제</button>
 	<div id="modal4">
-		<div class="modal_content">
-			<h2>일반 결제</h2>
+		<div class="modal_content" id="modal_content4">
+			<div class="modal-header">
+				<h2 class="modal-title">일반 결제</h2>
+			</div>
 
-			카드사: <select id="cardSelect">
-				<option value="비씨카드">비씨카드</option>
-				<option value="국민카드">국민카드</option>
-				<option value="신한카드">신한카드</option>
-				<option value="삼성카드">삼성카드</option>
-				<option value="롯데카드">롯데카드</option>
-				<option value="농협카드">농협카드</option>
-				<option value="하나카드">하나카드</option>
-				<option value="현대카드">현대카드</option>
-				<option value="기업은행카드">IBK기업은행카드</option>
-				<option value="우리카드">우리카드</option>
-			</select>
-			<p>
+			<div id="modal_body4">
+				<select id="cardSelect">
+					<option value="비씨카드">비씨카드</option>
+					<option value="국민카드">국민카드</option>
+					<option value="신한카드">신한카드</option>
+					<option value="삼성카드">삼성카드</option>
+					<option value="롯데카드">롯데카드</option>
+					<option value="농협카드">농협카드</option>
+					<option value="하나카드">하나카드</option>
+					<option value="현대카드">현대카드</option>
+					<option value="기업은행카드">IBK기업은행카드</option>
+					<option value="우리카드">우리카드</option>
+				</select>
+				<p>
+					<input type="text" id="cardNum"
+						placeholder="카드번호 '-'없이 입력(13~16자리)">
+				<p>
+					<input type="password" id="cardExp" placeholder="카드 유효기간(MM/YY)">
+				<p>
+					<input type="password" id="cardPw" placeholder="비밀번호 앞2자리">
+				<p>
+					<input type="text" id="cardBir" placeholder="생년월일 6자리">
+				<p>
 
-				카드 번호 :<input type="text" id="cardNum">
-			<p>
-				카드 유효기간 :<input type="text" id="cardExp">
-			<p>
-				비밀번호 앞 2자리 :<input type="text" id="cardPw">
-			<p>
-				생년월일 6자리 :<input type="text" id="cardBir">
-			<p>
+					<input type="checkbox" class="chk2">결제대행서비스 약관에 모두 동의
 
-				<input type="checkbox" class="chk2">결제대행서비스 약관에 모두 동의
-
-				<button id="modal_submit_btn4">결제하기</button>
-				<button id="modal_close_btn4">취소</button>
+					<button class="submit_btn" id="modal_submit_btn4">결제하기</button>
+					<button id="modal_close_btn4">취소</button>
+			</div>
 		</div>
 		<div class="modal_layer"></div>
 	</div>
@@ -191,9 +226,10 @@
 		<button type="button" id="modal_open_btn5">간편 결제</button>
 	<div id="modal5">
 		<div id="modal_change1">
-			<div class="modal_content">
-
-				<h2>간편결제</h2>
+			<div class="modal_content" id="modal_content5">
+				<div class="modal-header">
+					<h2 class="modal-title">간편결제</h2>
+				</div>
 				<div id="container">
 					<div class="slide_wrap">
 						<div class="slide_box">
@@ -228,8 +264,10 @@
 				<!-- // .container -->
 
 
-				<br> <input type="checkbox" class="chk3">전체약관 동의하기
-				<button id="modal_submit_btn5">결제하기</button>
+				<div id="agreeAll">
+					<input type="checkbox" class="chk3">전체약관 동의하기
+				</div>
+				<button class="submit_btn" id="modal_submit_btn5">결제하기</button>
 				<button id="modal_close_btn5">취소</button>
 			</div>
 			<div class="modal_layer"></div>
@@ -239,45 +277,49 @@
 
 		<!-- 간편결제 카드등록 모달 -->
 		<div id="modal_change2">
-			<div class="modal_content">
-				<h2>카드 등록하기</h2>
-				카드사: <select id="cardSelect2">
-					<option value="비씨카드">비씨카드</option>
-					<option value="국민카드">국민카드</option>
-					<option value="신한카드">신한카드</option>
-					<option value="삼성카드">삼성카드</option>
-					<option value="롯데카드">롯데카드</option>
-					<option value="농협카드">농협카드</option>
-					<option value="하나카드">하나카드</option>
-					<option value="현대카드">현대카드</option>
-					<option value="기업은행카드">IBK기업은행카드</option>
-					<option value="우리카드">우리카드</option>
-				</select>
-				<p>
+			<div class="modal_content" id="modal_content6">
+				<div class="modal-header">
+					<h2 class="modal-title">카드 등록하기</h2>
+				</div>
+				<div id="modal_body4">
+					<select id="cardSelect2">
+						<option value="비씨카드">비씨카드</option>
+						<option value="국민카드">국민카드</option>
+						<option value="신한카드">신한카드</option>
+						<option value="삼성카드">삼성카드</option>
+						<option value="롯데카드">롯데카드</option>
+						<option value="농협카드">농협카드</option>
+						<option value="하나카드">하나카드</option>
+						<option value="현대카드">현대카드</option>
+						<option value="기업은행카드">IBK기업은행카드</option>
+						<option value="우리카드">우리카드</option>
+					</select>
+					<p>
 
-					카드 번호 :<input type="text" id="cardNum2">
-				<p>
-					카드 유효기간 :<input type="text" id="cardExp2">
-				<p>
-					비밀번호 앞 2자리 :<input type="text" id="cardPw2">
-				<p>
-					생년월일 6자리 :<input type="text" id="cardBir2">
-				<p>
+						<input type="text" id="cardNum2"
+							placeholder="카드번호 '-'없이 입력(13~16자리)">
+					<p>
+						<input type="password" id="cardExp2" placeholder="카드 유효기간(MM/YY)">
+					<p>
+						<input type="password" id="cardPw2" placeholder="비밀번호 앞2자리">
+					<p>
+						<input type="text" id="cardBir2" placeholder="생년월일 6자리">
+					<p>
 
-					<input type="checkbox" class="chk4">전체약관 동의하기
-					<button type="button" id="modal_submit_btn6">등록하기</button>
-					<button type="button" id="modal_close_btn6">취소</button>
+						<input type="checkbox" class="chk4">전체약관 동의하기
+						<button class="submit_btn" type="button" id="modal_submit_btn6">등록하기</button>
+						<button type="button" id="modal_close_btn6">취소</button>
+				</div>
 			</div>
 			<div class="modal_layer"></div>
 		</div>
 	</div>
 
-	<button type="button" id="cancel">결제 취소</button>
+
 
 
 	<script>
    
-   $(document).ready(function() {
    
    /*
    극장 유형
@@ -287,8 +329,8 @@
    4:아이맥스  
    */
 
-
-   var thIdx = "${tcInfo.th_idx}";
+  
+   var thKind = "${tcInfo.th_kind}";
    var adult; 
    var youth; 
    var special;
@@ -309,18 +351,18 @@
        
    
    
-     if(thIdx == 1 || thIdx == 2) {
+     if(thKind == 1 || thKind == 2) {
         adult = 14000;
         youth = 11000;
         special = 8000;
-     } else if(thIdx == 3) {
-        adult = 16000;
-        youth = 13000;
-        special = 10000;
+     } else if(thKind == 3) {
+        adult = 20000;
+        youth = 15000;
+        special = 12000;
      } else {
-        adult = 25000;
-        youth = 23000;
-        special = 20000;
+        adult = 22000;
+        youth = 17000;
+        special = 14000;
      }
      
      var totalAmount = adult*adultNum + youth*youthNum + special*specialNum;
@@ -329,14 +371,13 @@
      $("#ticketDisplay").text(totalAmount);
       $("#pamountDisplay").text(totalAmount);
 
-         
 
       $("#modal_open_btn").click(function() {
          $("#modal").show();
          
       });
       $("#modal_close_btn").click(function() {
-         $("#modal").attr("style", "display:none");
+         $("#modal").hide();
       });
 
 
@@ -344,7 +385,7 @@
          $("#modal2").show();
       });
       $("#modal_close_btn2").click(function() {
-         $("#modal2").attr("style", "display:none");
+         $("#modal2").hide();
       });
 
 
@@ -352,7 +393,7 @@
          $("#modal3").show();
       });
       $("#modal_close_btn3").click(function() {
-         $("#modal3").attr("style", "display:none");
+         $("#modal3").hide();
       });
 
 
@@ -360,16 +401,16 @@
          $("#modal4").show();
       });
       $("#modal_close_btn4").click(function() {
-         $("#modal4").attr("style", "display:none");
+         $("#modal4").hide();
       });
 
 
       $("#modal_close_btn5").click(function() {
-         $("#modal_change1").attr("style", "display:none");
+         $("#modal_change1").hide();
       });
 
       $("#modal_close_btn6").click(function() {
-         $("#modal_change2").attr("style", "display:none");
+         $("#modal_change2").hide();
       });
       
       
@@ -393,6 +434,7 @@
       });
        
             
+    
      
 
       
@@ -413,21 +455,7 @@
                    if (result.result == 1) {
                        alert("쿠폰 등록 완료");
                        refreshMemList();
-                       /* 쿠폰목록 새로고침 보류
-                       $.ajax({
-                           url: "/getCoupons", // 업데이트된 쿠폰 리스트를 가져오는 URL
-                           type: "get",
-                           dataType: "json",
-                           success: function(couponList) {
-                               // 업데이트된 쿠폰 리스트를 화면에 표시하는 코드
-                               // updatedCouponList를 이용하여 DOM을 업데이트    
-                                console.log(couponList);
-                               },
-                           error: function() {
-                               alert("쿠폰 목록을 가져오는 데 실패했습니다.");
-                           }
-                       });
-                       */
+                   
                    } else {
                        alert("유효하지 않는 코드입니다");
                    }
@@ -457,7 +485,7 @@
              selectCouponList.push($(this).data("coupon"));
              });
 
-             if (selectCouponList.length > 0) { // 적어도 하나 이상의 쿠폰이 선택되었을 때
+             if (selectCouponList.length > 0) { //하나 이상의 쿠폰이 선택되었을 때
                  $.ajax({
                      type: "POST",
                      url: "/couDiscount",
@@ -468,24 +496,22 @@
                          
                          cDiscount = parseInt(totalDiscount);
          
-                         //newAmount = ${ticketPrice.tp_price} - cDiscount;
                         newAmount = totalAmount - cDiscount;
                         $("#discountDisplay").text(cDiscount);
                          $("#pamountDisplay").text(newAmount);
-                         $("#modal").attr("style", "display:none");
-                        
+                         $("#modal").hide();
                      },
                      error: function() {
                          alert("에러. 다시 시도하세요");
                      }
                  });
-    } else {
+    } else { // 쿠폰 체크 안하고 적용
         alert("쿠폰을 적용하지 않습니다");
         newAmount = totalAmount;
         cDiscount = 0;
         $("#discountDisplay").text(cDiscount);
         $("#pamountDisplay").text(newAmount);
-        $("#modal").attr("style", "display:none");
+        $("#modal").hide();
     }
 });
       
@@ -493,9 +519,6 @@
         const btn2 = document.getElementById('modal_open_btn2');
 
       newAmount = totalAmount - cDiscount;
-      
-      
-      
       
       // 관람권 유효성 검사, 등록 // 
       $("#admCheck").click(function() {
@@ -525,21 +548,6 @@
            });           
            }
        });
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       
       
@@ -576,9 +584,10 @@
        
        $("#discountDisplay").text(cDiscount + aDiscount);
        $("#pamountDisplay").text(newAmount2);
-       $("#modal2").attr("style", "display:none");
+       $("#modal2").hide();
        
        btn1.disabled = true;
+  
        
        } else {
           alert("관람권을 적용하지 않습니다");
@@ -586,7 +595,7 @@
            aDiscount = 0;
            $("#discountDisplay").text(cDiscount);
            $("#pamountDisplay").text(newAmount2);
-           $("#modal2").attr("style", "display:none");
+           $("#modal2").hide();
            btn1.disabled = false;
 
        }
@@ -594,14 +603,15 @@
       });
       
       
+      var newPoint = ${havePoint.m_point};
+      
     
       // 포인트 적용버튼 //
       $("#modal_submit_btn3").click(function() {
          
       newAmount2 = newAmount - aDiscount;
          usePoint = parseInt($("#usePoint").val()); // 입력된 usepoint 값을 정수로 파싱
-         
-          
+  
          if (checkedCheckboxes.length === adultNum + youthNum + specialNum) { // 인원수 합산(0910)
                     alert("관람 인원수 만큼 할인을 적용할 수 있습니다");
                  } else { 
@@ -609,10 +619,11 @@
              if(newAmount2 < usePoint){
                 alert("포인트를 결제 금액이내로 사용해주세요");
              } else if(usePoint == 0){
-                 $("#modal3").attr("style", "display:none");
+                 $("#modal3").hide();
                  $("#discountDisplay").text(cDiscount + aDiscount);
                  $("#pamountDisplay").text(newAmount2);
- 
+                 newPoint = ${havePoint.m_point};
+
                  if(aDiscount == 0) {
                 	 btn1.disabled = false;
                 	 btn2.disabled = false;
@@ -625,13 +636,12 @@
             newAmount3 = newAmount2 - usePoint;
             $("#discountDisplay").text(cDiscount + aDiscount + usePoint);
               $("#pamountDisplay").text(newAmount3);
-              $("#modal3").attr("style", "display:none");
-              var newPoint = ${havePoint.m_point} - usePoint; // db에 넣을값 (point)
-              alert(newPoint);
-              alert(usePoint);
-              
+              $("#modal3").hide();
+               newPoint = ${havePoint.m_point} - usePoint; // db에 넣을값 (point)
+   
               btn1.disabled = true;
               btn2.disabled = true;
+    
               
              }
                
@@ -649,7 +659,20 @@
       });
 
       
-     
+     //쿠폰/관람권/포인트 적용 취소 버튼
+  $("#couponCancel").click(function() {
+    	  
+    	  var couponConfirm = confirm('적용된 할인을 취소하시겠습니까?');  
+    	  if(couponConfirm) {	  
+    		  refreshMemList();
+    	 
+    	  }
+      });
+            
+      
+  var amount = $("#pamountDisplay").text();
+  var savePoint = amount / 10;
+  var newPoint2 = newPoint + savePoint;
       
          
        //일반 결제 승인 버튼//
@@ -673,10 +696,16 @@
                   dataType:"json",
                   success: function(result){
                       if (result.result == "success") {
-                           alert("카드 정보가 일치합니다.");
+                           alert("결제가 완료되었습니다.");
                            if(!agree.checked){
                              alert("약관에 동의해주세요");
                            } else {
+                        	   
+                        	   clearTimeout(timer);
+                        	   amount = $("#pamountDisplay").text();
+                	           savePoint = amount / 10;
+                	           newPoint2 = newPoint + savePoint;
+                        	   var rpPayment1 = "a";
                         	   
                         	   var mailmail = {
                   	                 seat: "${list}",
@@ -685,12 +714,17 @@
                   	                 msStime: "${tcInfo.ms_stime}", 
                   	                 msEtime: "${tcInfo.ms_etime}",   
                   	                 thCity: "${tcInfo.th_city}",   
-                  	                 thIdx: "${tcInfo.th_idx}",    
+                  	                 thKind: "${tcInfo.th_kind}",    
                   	                 adultNum: adultNum,
                   	                 youthNum: youthNum,
                   	                 specialNum: specialNum,
                   	                 msIdx: "${msIdx}",
-                  	   				peopleNum: adultNum + youthNum + specialNum
+                  	   				peopleNum: adultNum + youthNum + specialNum,
+                  	   			amount:amount,
+           	                	newPoint:newPoint,
+           	                	savePoint:savePoint,
+           	                	rpPayment:rpPayment1,
+           	                	usePoint:usePoint
                   	                 };
 
                   	           $.ajax({
@@ -698,28 +732,26 @@
                   	                url: "/email",
                   	                data: mailmail,
                   	                success: function(result) {
-                  	                	 if (result.result == "success") {   
                   	                	// 이메일 전송 성공
-                                 	   location.href="/ticket?ms_idx=" + msIdx + "&adult="+ adultNum + "&youth=" + youthNum + "&special=" + specialNum +"&list=" + "${list}"; // 모바일티켓.jsp
-
-                  	                	 }    
+                       	                	 location.href="/ticket?ms_idx=" + msIdx + "&adult="+ adultNum + "&youth=" + youthNum + "&special=" + specialNum +"&list=" + "${list}"; // 모바일티켓.jsp
+  
                   	                },
                   	                error: function() {
-                  	                    alert("에러. 다시 시도하세요");
+                  	                  //  alert("이메일 전송 실패");
                   	                }
                   	   });
         
-                  	         newPoint = ${havePoint.m_point} - usePoint; // db에 넣을값 (point)
-                  	           
+                  	      
                   	         $.ajax({
            	                  type: "POST",
            	                  url: "/updatePoint",
-           	                  data: {"newPoint":newPoint},
+           	                  data: {"newPoint":newPoint,
+        	                	  "savePoint":savePoint},
            	                  success: function() {
-           	                	  alert("포인트적용");
+           	                	 // alert("포인트적용");
            	                  },
            	                  error: function() {
-           	                      alert("에러. 다시 시도하세요");
+           	                     // alert("에러. 다시 시도하세요");
            	                  }
            	              });
                   	           
@@ -740,7 +772,7 @@
 
            	        	    },
            	        	    error: function() {
-           	        	        alert("데이터 전송 오류!");
+           	        	      //  alert("데이터 전송 오류!");
            	        	    }
            	        	});
            	           
@@ -759,9 +791,10 @@
 
             	        	    },
             	        	    error: function() {
-            	        	        alert("데이터 전송 오류!");
+            	        	      //  alert("데이터 전송 오류!");
             	        	    }
             	        	});
+            	
  
                            }
                        } else {
@@ -769,7 +802,7 @@
                        }
                   },
                   error: function() {
-                      alert("에러. 다시 시도하세요");
+                    //  alert("에러. 다시 시도하세요");
                   }
        });
        });
@@ -785,6 +818,14 @@
                  alert("약관에 동의해주세요");
                } else {
 
+            	   amount = $("#pamountDisplay").text();
+    	           savePoint = amount / 10;
+    	           newPoint2 = newPoint + savePoint;
+            	   var rpPayment2 = "b";
+            	   
+            	   alert("결제가 완료되었습니다.");
+            	   clearTimeout(timer);
+            	   
             	   //이메일 보내기, 예매내역 등록하기
             	   var mailmail = {
             	                 seat: "${list}",
@@ -793,12 +834,17 @@
             	                 msStime: "${tcInfo.ms_stime}", 
             	                 msEtime: "${tcInfo.ms_etime}",   
             	                 thCity: "${tcInfo.th_city}",   
-            	                 thIdx: "${tcInfo.th_idx}",    
+            	                 thKind: "${tcInfo.th_kind}",
             	                 adultNum: adultNum,
             	                 youthNum: youthNum,
             	                 specialNum: specialNum,
             	                 msIdx: "${msIdx}",
-            	   				peopleNum: adultNum + youthNum + specialNum
+            	   				peopleNum: adultNum + youthNum + specialNum,
+            	   				amount:amount,
+           	                	newPoint:newPoint,
+           	                	savePoint:savePoint,
+           	                	rpPayment:rpPayment2,
+           	                	usePoint:usePoint
             	                 };
 
 
@@ -808,26 +854,27 @@
             	                data: mailmail, 
             	                success: function(response) {
             	                        // 이메일 전송 성공
-            	                	 location.href="/ticket?ms_idx=" + msIdx + "&adult="+ adultNum + "&youth=" + youthNum + "&special=" + specialNum +"&list=" + "${list}"; // 모바일티켓.jsp
-            	                        
+           	                	 location.href="/ticket?ms_idx=" + msIdx + "&adult="+ adultNum + "&youth=" + youthNum + "&special=" + specialNum +"&list=" + "${list}"; // 모바일티켓.jsp
+
             	                },
             	                error: function() {
-            	                    alert("에러. 다시 시도하세요");
+            	                  //  alert("이메일 전송 에러");
             	                }
             	   });
-            	   
-        
-           	           newPoint = ${havePoint.m_point} - usePoint; // db에 넣을값 (point)
+            	           
+            	          
 
+           	           
             	           $.ajax({
             	                  type: "POST",
             	                  url: "/updatePoint",
-            	                  data: {"newPoint":newPoint},
+            	                  data: {"newPoint":newPoint,
+            	                	  "savePoint":savePoint},
             	                  success: function() {
-            	                	  alert("포인트적용");
+            	                //	  alert("포인트 적용");
             	                  },
             	                  error: function() {
-            	                      alert("에러. 다시 시도하세요");
+            	               //       alert("포인트 적용 에러");
             	                  }
             	              });
            	           
@@ -842,12 +889,12 @@
            	        	    type: "POST", 
            	        	    url: "/couDelete",
            	        	    data: {selectCouponList: selectCouponList},
-           	        	    traditional: true,
+           	        	   	traditional: true,
            	        	    success: function(response) {
 
            	        	    },
            	        	    error: function() {
-           	        	        alert("데이터 전송 오류!");
+           	        	      //  alert("쿠폰 업데이트 오류");
            	        	    }
            	        	});
            	           
@@ -861,18 +908,18 @@
             	        	    type: "POST", 
             	        	    url: "/admDelete",
             	        	    data: {selectAdm: selectAdm},
-            	        	    traditional: true,
+            	        	   	traditional: true,
             	        	    success: function(response) {
 
             	        	    },
             	        	    error: function() {
-            	        	        alert("데이터 전송 오류!");
+            	        	      //  alert("관람권 업데이트 오류");
             	        	    }
             	        	});
                }
          });
        
-   });
+  
   
 		
        
@@ -906,12 +953,12 @@
                   dataType:"json",
                   success: function(result){
                       if (result.result == "success") {
-                           alert("카드 정보가 일치합니다.");
-                           refreshMemList(); // 카드목록 새로고침 (보류)
-                                    //$("#modal_change2").hide(); 
-                               //  $("#modal_change1").show(); 
-                                 
-                                
+                           alert("카드를 등록하였습니다");
+                           refreshMemList(); 
+                           // 카드목록 새로고침 (보류)
+                                   // $("#modal_change2").hide(); 
+                               // $("#modal_change1").show(); 
+         
                            } else {
                           alert(result.result);
                        }
@@ -937,29 +984,64 @@
  		  var canConfirm = confirm('해당 예매를 취소하시겠습니까?');
 
  		   if (canConfirm) {
- 	                alert("예매가 취소되었습니다");
- 	             
+ 	           
  	                $.ajax({
  	                     type: "POST",
  	                     url: "/updateSeat",
  	                     data: {
  	                    	 list:"${list}",
- 	                    	 msIdx:"${msIdx}",
- 	                    	
+ 	                    	 msIdx:"${msIdx}"
  	                     },
  	                     success: function() {
-
+ 	                    	 
  	                     },
  	                     error: function() {
  	                         alert("에러. 다시 시도하세요");
  	                     }
  	                 });
- 
  	                
+ 						alert("예매가 취소되었습니다");
+ 						location.href="/mselect";
  		   }
  		
  	});
      
+     
+     
+    // 타이머 변수 선언
+       let timer;
+
+       // 페이지 진입 시 타이머 시작
+       function startTimer() {
+           timer = setTimeout(function () {
+        	   
+               // 타이머가 만료되면 선택한 좌석을 자동으로 취소
+        	   $.ajax({
+                    type: "POST",
+                    url: "/updateSeat",
+                    data: {
+                   	 list:"${list}",
+                   	 msIdx:"${msIdx}"
+                    },
+                    success: function() {
+                   	 
+                    },
+                    error: function() {
+                        alert("에러. 다시 시도하세요");
+                    }
+                });
+               
+					alert("예매가 취소되었습니다");
+					location.href="/mselect";
+					
+           }, 1 * 60 * 1000); // 1분 (단위: 밀리초)
+       }
+
+       // 페이지 진입 시 타이머 시작
+       startTimer();
+     
+     
+ 
    
        //간편결제 카드 슬라이드//
          (function () {

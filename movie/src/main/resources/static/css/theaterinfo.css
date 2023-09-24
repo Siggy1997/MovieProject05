@@ -1,56 +1,49 @@
 @charset "UTF-8";
 
-
-.slider img{
+.slider img {
 	padding: 20px;
-    width: 1050px;
-    height: 600px;
-    box-sizing: border-box;
+	width: 1050px;
+	height: 600px;
+	box-sizing: border-box;
 }
+
 .box {
 	width: 1050px;
 	margin: 0 auto;
 }
 /* slider */
 .sliderWrap {
-    position: relative;
-    padding: 50px;
+	position: relative;
+	padding: 50px;
 }
-.sliderWrap > div {
-    display: none;
+
+.sliderWrap>div {
+	display: none;
 }
-.sliderWrap > div:first-child {
-    display: block;
+
+.sliderWrap>div:first-child {
+	display: block;
 }
+
 .sliderWrap .slider {
-    position: absolute;
-    left: 0;
-    top: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
+
 .sliderWrap .slider img {
-    vertical-align: top;
+	vertical-align: top;
 }
+
 .sliderWrap .slider span {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0,0,0,0.4);
-    padding: 10px 20px;
-    color: #fff;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 10px 20px;
+	color: #fff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* aka춘식 */
 .menubar {
@@ -61,10 +54,9 @@
 	flex-direction: row;
 	color: #209BF2;
 	font-weight: bolder;
-	
 }
 
-.mhome, .mimax, .mtdx1, .mtdx2 , .mfdx , .mseat{
+.mhome, .mimax, .mtdx1, .mtdx2, .mfdx, .mseat {
 	padding: 8px;
 	text-align: center;
 	border-bottom: 3px solid #77C2F7;
@@ -72,7 +64,6 @@
 	background-color: #1D1C1C;
 }
 
- 
 .menubar div:hover {
 	color: #1D1C1C;
 	background-color: #209BF2;
@@ -120,7 +111,6 @@ p {
 	position: relative;
 }
 
-
 .imaxin3 {
 	background-image: url("../img/IMAX2.jpg");
 	background-size: cover;
@@ -153,6 +143,7 @@ p {
 	height: 100%;
 	font-size: 15pt;
 }
+
 .tdxdetail1 {
 	background-image: url("../img/TDX1.jpg");
 	background-size: cover;
@@ -165,30 +156,30 @@ p {
 	margin: 0 auto;
 	margin-top: 15px;
 }
+
 .tdxdetail2 {
-    position: relative;
-    width: 100%; 
-    text-align: center; 
+	position: relative;
+	width: 100%;
+	text-align: center;
 }
 
 .tdx-center {
-    display: inline-block;
-    text-align: center;
+	display: inline-block;
+	text-align: center;
 }
 
 .tdx-center img {
-    width: 312px;
-    height: 240px;
-    border-radius: 17px;
-    margin: 15px;
+	width: 312px;
+	height: 240px;
+	border-radius: 17px;
+	margin: 15px;
 }
 
 .fdxdetail2 {
-    position: relative;
-    width: 100%; 
-    text-align: center; 
+	position: relative;
+	width: 100%;
+	text-align: center;
 }
-
 
 .fdxdetail1 {
 	background-image: url("../img/FDX.png");
@@ -202,47 +193,50 @@ p {
 	margin: 0 auto;
 	margin-top: 15px;
 }
+
 .fdx-center {
-    display: inline-block;
-    text-align: center;
+	display: inline-block;
+	text-align: center;
 }
 
 .fdx-center img {
-    width: 485px;
-    height: 240px;
-    border-radius: 17px;
-    margin: 15px;
+	width: 485px;
+	height: 240px;
+	margin: 15px;
 }
 
-
 .seatdetail {
-    position: relative;
-    width: 100%;
-    text-align: center;
+	position: relative;
+	width: 100%;
+	text-align: center;
 }
 
 .seat-center {
-    display: flex; /* 사진을 가로로 나란히 정렬하기 위해 flex 사용 */
-    flex-wrap: wrap; /* 화면 크기에 맞게 자동으로 줄 바꿈 */
-    justify-content: center; /* 가운데 정렬 */
+	display: flex; /* 사진을 가로로 나란히 정렬하기 위해 flex 사용 */
+	flex-wrap: wrap; /* 화면 크기에 맞게 자동으로 줄 바꿈 */
+	justify-content: center; /* 가운데 정렬 */
 }
 
 .seat-item {
-    width: 45%; /* 각 사진 아이템의 너비를 조정 (2개씩 나오도록) */
-    margin: 15px;
-    text-align: left; /* 텍스트 왼쪽 정렬 */
+	border-radius: 17px;
+	border: 1px solid #9E9E9E;
+	width: 45%; /* 각 사진 아이템의 너비를 조정 (2개씩 나오도록) */
+	margin: 15px;
+	text-align: left; /* 텍스트 왼쪽 정렬 */
+	box-shadow: 15px 15px 15px rgba(0, 0, 0, .3);
 }
 
 .seat-item img {
-    width: 270px; 
-    height: 230px; 
-    border-radius: 17px;
+	width: 270px;
+	height: 230px;
+	border-radius: 17px;
 }
 
 .description {
-	width : 200px;
-    display: block; 
-    font-weight: bold;
-    margin-top: 10px; 
-    float: right;
+	width: 200px;
+	display: block;
+	font-weight: bold;
+	margin-top: 40px;
+	text-align: center;
+	float: right;
 }
